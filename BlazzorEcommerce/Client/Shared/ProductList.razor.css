@@ -9,9 +9,14 @@
         transform: scale(1.1);
     }
 
-.media-img-wrapper{
+.media-img-wrapper {
     width:200px;
     text-align:center;
+}
+.page-selection {
+    margin-right:15px;
+    margin-bottom:30px;
+
 }
 
 @media(max-width:1023.98px){

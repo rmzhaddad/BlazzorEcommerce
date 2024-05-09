@@ -10,6 +10,16 @@ namespace BlazzorEcommerce.Server.Services.ProductService
         {
             _context = context;
         }
+
+        public async Task<ServiceResponse<List<Product>>> GetFeaturedProducts()
+        {
+            var response = new ServiceResponse<List<Product>>
+            {
+                Data= await _context.Products.Where(p=>p.Featured==true).Include(p=>p.Variants).ToListAsync()
+            };
+            return response;
+        }
+
         public async Task<ServiceResponse<List<Product>>> GetProductsAsync()
         {
             var response = new ServiceResponse<List<Product>>()
@@ -60,11 +70,23 @@ namespace BlazzorEcommerce.Server.Services.ProductService
 
         }
 
-        public async Task<ServiceResponse<List<Product>>> SearchProducts(string searchText)
+        public async Task<ServiceResponse<ProductSearchResult>> SearchProducts(string searchText, int page)
         {
-            var response = new ServiceResponse<List<Product>>
+            var pageResults = 2f;
+            var pageCount = Math.Ceiling((await FindProductsBySearchText(searchText)).Count/ pageResults);
+
+            var products = await _context.Products.Where(p => p.Title.ToLower().Contains(searchText.ToLower())
+                            || p.Description.ToLower().Contains(searchText.ToLower())).Include(p => p.Variants)
+                            .Skip((page - 1) * (int)pageResults)
+                            .Take((int)pageResults)
+                            .ToListAsync();
+            var response = new ServiceResponse<ProductSearchResult>
             {
-                Data = await FindProductsBySearchText(searchText)
+                Data = new ProductSearchResult { 
+                    Products=products,
+                    CurrentPage=page,
+                    Pages=(int)pageCount
+                }
             };
 
 
