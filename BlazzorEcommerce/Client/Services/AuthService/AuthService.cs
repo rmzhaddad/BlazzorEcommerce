@@ -16,6 +16,7 @@ namespace BlazzorEcommerce.Client.Services.AuthService
             return await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
         }
 
+
         public async Task<ServiceResponse<string>> Login(UserLogin request)
         {
             var result = await _http.PostAsJsonAsync("api/auth/login", request);
