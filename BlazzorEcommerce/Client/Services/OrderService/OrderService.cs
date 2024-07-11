@@ -1,4 +1,5 @@
 ﻿
+
 using Microsoft.AspNetCore.Components;
 
 namespace BlazzorEcommerce.Client.Services.OrderService
@@ -18,6 +19,19 @@ namespace BlazzorEcommerce.Client.Services.OrderService
             _authStateProvider = authStateProvider;
             _navigationManager = navigationManager;
         }
+
+        public async Task<OrderDetailsResponse> GetOrderDetails(int orderId)
+        {
+            var result = await _http.GetFromJsonAsync<ServiceResponse<OrderDetailsResponse>>($"api/order/{orderId}");
+            return result.Data;
+        }
+
+        public async Task<List<OrderOverviewResponse>> GetOrders()
+        {
+            var results = await _http.GetFromJsonAsync<ServiceResponse<List<OrderOverviewResponse>>>("api/order");
+            return results.Data;
+        }
+
         public async Task PlaceOrder()
         {
             if(await IsUserAuthenticated())
