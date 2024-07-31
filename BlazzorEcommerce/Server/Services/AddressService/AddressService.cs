@@ -30,9 +30,7 @@ namespace BlazzorEcommerce.Server.Services.AddressService
                 dbAddress.State = address.State;
                 dbAddress.Street = address.Street;
                 dbAddress.Zip = address.Zip;
-                response.Data= dbAddress; 
-
-
+                response.Data= dbAddress;
             }
             await _context.SaveChangesAsync();
             return response;
