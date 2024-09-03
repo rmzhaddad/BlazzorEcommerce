@@ -8,6 +8,7 @@ global using BlazzorEcommerce.Server.Services.AuthService;
 global using BlazzorEcommerce.Server.Services.OrderService;
 global using BlazzorEcommerce.Server.Services.PaymentService;
 global using BlazzorEcommerce.Server.Services.AddressService;
+global using BlazzorEcommerce.Server.Services.ProductTypeService;
 
 
 using Microsoft.AspNetCore.ResponseCompression;
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters {

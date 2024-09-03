@@ -4,13 +4,17 @@ global using BlazzorEcommerce.Client.Services.ProductService;
 global using BlazzorEcommerce.Client.Services.AuthService;
 global using Microsoft.AspNetCore.Components.Authorization;
 global using BlazzorEcommerce.Client.Services.CartService;
- using BlazzorEcommerce.Client.Services.OrderService;
+global using BlazzorEcommerce.Client.Services.ProductTypeService;
+global using BlazzorEcommerce.Client.Services.AddressService;
+global using BlazzorEcommerce.Client.Services.OrderService;
+
 using BlazzorEcommerce.Client;
 using Microsoft.AspNetCore.Components.Web;
 using BlazzorEcommerce.Client.Services.CategorySevice;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Blazored.LocalStorage;
-using BlazzorEcommerce.Client.Services.AddressService;
+
+
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -24,6 +28,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService,OrderService>();
 builder.Services.AddScoped<IAddressService , AddressService>();
+builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
