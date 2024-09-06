@@ -20,6 +20,7 @@ namespace BlazzorEcommerce.Client.Services.ProductService
         public int CurrentPage { get; set; } = 1;
         public int PageCount { get; set; } = 0;
         public string LastSearchText { get; set; } = string.Empty;
+        public List<Product> Adminproducts { get ; set; }
 
         public async Task GetProducts(string? categoryUrl=null)
         {
@@ -65,6 +66,18 @@ namespace BlazzorEcommerce.Client.Services.ProductService
             var result = await _http.GetFromJsonAsync<ServiceResponse<List<string>>>($"api/product/searchsuggestions/{searchText}");
             return result.Data;
 
+        }
+
+        public async Task GetAdminProducts()
+        {
+            var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/admin");
+            Adminproducts = result.Data;
+            CurrentPage = 1;
+            PageCount = 0;
+            if(Adminproducts.Count==0)
+            {
+                Message = "No products found";
+            }
         }
     }
 }
